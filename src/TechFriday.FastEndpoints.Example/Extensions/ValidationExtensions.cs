@@ -1,5 +1,7 @@
 using FastEndpoints.Example.Models;
+using FastEndpoints.Example.Options;
 using FluentValidation.Results;
+using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
 namespace FastEndpoints.Example.Extensions;
@@ -33,9 +35,9 @@ public static class ValidationExtensions
     {
         services.AddSingleton<IMongoClient>(x =>
         {
-            return new MongoClient(
-                "mongodb://localhost:27017/?connectTimeoutMS=10&maxPoolSize=200&minPoolSize=4&maxIdleTimeMS=300&appName=testDb"
-            );
+            var mongo = x.GetRequiredService<IOptions<MongoOptions>>().Value;
+
+            return new MongoClient(mongo.ConnectionString);
         });
 
         services.AddSingleton(

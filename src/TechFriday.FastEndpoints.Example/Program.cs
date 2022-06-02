@@ -1,6 +1,6 @@
-using System.Text.Json;
 using FastEndpoints;
 using FastEndpoints.Example.Extensions;
+using FastEndpoints.Example.Options;
 using FastEndpoints.Example.Repositories;
 using FastEndpoints.Example.RouteConstraints;
 using FastEndpoints.Example.Services;
@@ -18,6 +18,11 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddSingleton<IUserRepository, UserRepository>();
 builder.Services.AddSingleton<IHasherService, HasherService>();
+
+builder.Services.AddOptions<MongoOptions>()
+    .BindConfiguration(MongoOptions.Section)
+    .ValidateDataAnnotations()
+    .ValidateOnStart();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 .AddCookie(options =>
