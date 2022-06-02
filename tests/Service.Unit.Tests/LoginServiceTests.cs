@@ -1,9 +1,7 @@
-﻿using AutoFixture;
+﻿
 using FastEndpoints.Example.Models;
 using FastEndpoints.Example.Repositories;
 using FastEndpoints.Example.Services;
-using NSubstitute;
-using FluentAssertions;
 using NSubstitute.ReturnsExtensions;
 
 namespace Service.Unit.Tests;

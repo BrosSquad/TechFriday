@@ -9,7 +9,7 @@ public class MeEndpoint : EndpointWithoutRequest
 {
     public override async Task HandleAsync(CancellationToken ct)
     {
-        var name = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        var name = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
         await SendOkAsync(new { Name = name }, cancellation: ct);
     }
