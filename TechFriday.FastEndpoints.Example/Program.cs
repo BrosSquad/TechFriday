@@ -55,7 +55,7 @@ app.UseAuthorization();
 
 app.UseFastEndpoints(options =>
 {
-    options.SerializerOptions = x => x.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+    options.SerializerOptions = x => x.PropertyNamingPolicy = null;
     options.ErrorResponseStatusCode = StatusCodes.Status422UnprocessableEntity;
     options.ErrorResponseBuilder = (failures, _) => failures.ToResponse();
 });
