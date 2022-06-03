@@ -40,9 +40,11 @@ public static class ValidationExtensions
             return new MongoClient(mongo.ConnectionString);
         });
 
-        services.AddSingleton(
-            x => x.GetRequiredService<IMongoClient>().GetDatabase("testDb")
-        );
+        services.AddSingleton(x => {
+            var mongo = x.GetRequiredService<IOptions<MongoOptions>>().Value;
+
+            return x.GetRequiredService<IMongoClient>().GetDatabase(mongo.AppName);
+        });
 
         services.AddSingleton(x =>
             x.GetRequiredService<IMongoDatabase>()
