@@ -6,7 +6,7 @@ namespace FastEndpoints.Example.Services;
 
 public interface ILoginService
 {
-	public Task<User?> LoginAsync(string email, string password);
+	 Task<User?> LoginAsync(string email, string password);
 }
 
 public class LoginService : ILoginService

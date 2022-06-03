@@ -37,5 +37,7 @@ public class LoginEndpoint : Endpoint<LoginRequest, object>
         var principal = new ClaimsPrincipal(identity);
 
         await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
+        await SendOkAsync(user, ct);
     }
 }

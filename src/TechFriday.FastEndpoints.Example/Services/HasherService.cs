@@ -2,8 +2,8 @@
 
 public interface IHasherService
 {
-	public bool Verify(string password, string hash);
-	public string Generate(string password);
+	bool Verify(string password, string hash);
+	string Generate(string password);
 }
 
 public class HasherService : IHasherService

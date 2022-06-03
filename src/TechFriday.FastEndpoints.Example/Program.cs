@@ -11,7 +11,7 @@ builder.Services.Configure<RouteOptions>(x =>
     x.ConstraintMap.Add("mongoId", typeof(MongoIdConstraint));
 });
 
-
+builder.WebHost.ConfigureKestrel(x => x.AddServerHeader = false);
 builder.Logging.ClearProviders();
 builder.Services.AddServicesRepositories();
 
@@ -52,7 +52,7 @@ app.UseAuthorization();
 
 app.UseFastEndpoints(options =>
 {
-    options.SerializerOptions = x => x.PropertyNamingPolicy = null;
+    options.SerializerOptions = x => x.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase;
     options.ErrorResponseStatusCode = StatusCodes.Status422UnprocessableEntity;
     options.ErrorResponseBuilder = (failures, _) => failures.ToResponse();
 });
