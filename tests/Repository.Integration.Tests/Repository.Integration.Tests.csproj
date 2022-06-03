@@ -34,8 +34,12 @@
     <None Remove="Microsoft.Extensions.Configuration" />
     <None Remove="Microsoft.Extensions.Configuration.EnvironmentVariables" />
     <None Remove="FluentAssertions" />
+    <None Remove="Repositories\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\TechFriday.FastEndpoints.Example\TechFriday.FastEndpoints.Example.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Repositories\" />
   </ItemGroup>
 </Project>

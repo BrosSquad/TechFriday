@@ -1,10 +1,8 @@
 ﻿using FastEndpoints.Example.Endpoints.Users.CreateUserEndpoint;
 using FastEndpoints.Example.Models;
 using FastEndpoints.Example.Repositories;
-using FluentAssertions;
-using MongoDB.Bson;
 
-namespace Repository.Integration.Tests;
+namespace Repository.Integration.Tests.Repositories;
 
 public class UserRepositoryTests : IntegrationTestCase
 {
@@ -176,7 +174,6 @@ public class UserRepositoryTests : IntegrationTestCase
         user.Should().BeOfType<User>();
         user.Should().NotBeNull();
     }
-
 
     [Fact]
     public async Task GetUserByEmailAsync_Should_Return_Null_When_Email_Does_Not_Exists()

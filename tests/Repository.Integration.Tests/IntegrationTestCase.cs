@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Configuration;
-using MongoDB.Driver;
 
 namespace Repository.Integration.Tests;
 
@@ -33,6 +32,7 @@ public class IntegrationTestCase : IDisposable, IAsyncDisposable
     public void Dispose()
     {
         var iterator = Client.ListDatabaseNames();
+
         if (iterator == null)
         {
             return;

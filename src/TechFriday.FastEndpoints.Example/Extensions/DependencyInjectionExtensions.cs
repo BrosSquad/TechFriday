@@ -1,5 +1,7 @@
 using FastEndpoints.Example.Models;
 using FastEndpoints.Example.Options;
+using FastEndpoints.Example.Services;
+using FastEndpoints.Example.Repositories;
 using FluentValidation.Results;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
@@ -12,7 +14,7 @@ public class ErrorResponse
     public string Message {get; init;} = default!;
 }
 
-public static class ValidationExtensions
+public static class DependencyInjectionExtensions
 {
     public static List<ErrorResponse> ToResponse(this IEnumerable<ValidationFailure> errors)
     {
@@ -40,7 +42,8 @@ public static class ValidationExtensions
             return new MongoClient(mongo.ConnectionString);
         });
 
-        services.AddSingleton(x => {
+        services.AddSingleton(x =>
+        {
             var mongo = x.GetRequiredService<IOptions<MongoOptions>>().Value;
 
             return x.GetRequiredService<IMongoClient>().GetDatabase(mongo.AppName);
@@ -53,4 +56,25 @@ public static class ValidationExtensions
 
         return services;
     }
+
+    public static IServiceCollection AddServicesRepositories(this IServiceCollection services)
+    {
+        services.AddScoped<IUserService, UserService>();
+        services.AddScoped<ILoginService, LoginService>();
+        services.AddSingleton<IUserRepository, UserRepository>();
+        services.AddSingleton<IHasherService, HasherService>();
+
+        return services;
+    }
+
+    public static IServiceCollection AddOptionModels(this IServiceCollection services)
+    {
+        services.AddOptions<MongoOptions>()
+            .BindConfiguration(MongoOptions.Section)
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
+
+        return services;
+    }
+
 }
