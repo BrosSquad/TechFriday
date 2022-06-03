@@ -6,8 +6,8 @@ public class GetUserEndpointSummary : Summary<GetUserEndpoint>
 {
 	public GetUserEndpointSummary()
 	{
-		Summary = "";
-		Description = "";
+		Summary = "GetUserEndpoint";
+		Description = "Get User By Id Endpoint";
 		Response<User>(200, "User found.");
 		Response<object>(404, "User not found.");
 	}

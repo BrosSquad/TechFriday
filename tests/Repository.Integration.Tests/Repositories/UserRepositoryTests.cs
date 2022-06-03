@@ -15,7 +15,6 @@ public class UserRepositoryTests : IntegrationTestCase
         _userRepository = new UserRepository(collection);
     }
 
-
     [Fact]
     public async Task GetUsersAsync_Should_Return_Empty_Array()
     {

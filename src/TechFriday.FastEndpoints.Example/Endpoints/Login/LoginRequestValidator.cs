@@ -1,5 +1,4 @@
-﻿
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace FastEndpoints.Example.Endpoints.Login;
 

@@ -6,7 +6,7 @@ namespace FastEndpoints.Example.Services;
 
 public interface IUserService
 {
-    Task<IEnumerable<User>> GetUsersAsync();
+    Task<List<User>> GetUsersAsync();
     Task<User?> GetUserAsync(string id);
     Task<User> CreateUserAsync(CreateUserRequest request);
     Task<bool> UpdateUserAsync(string id, CreateUserRequest request);
@@ -22,7 +22,7 @@ public class UserService : IUserService
         _userRepository = userRepository;
     }
 
-    public async Task<IEnumerable<User>> GetUsersAsync()
+    public async Task<List<User>> GetUsersAsync()
     {
         return await _userRepository.GetUsersAsync();
     }

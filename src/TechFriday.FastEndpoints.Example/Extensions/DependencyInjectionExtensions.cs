@@ -63,6 +63,7 @@ public static class DependencyInjectionExtensions
         services.AddScoped<ILoginService, LoginService>();
         services.AddSingleton<IUserRepository, UserRepository>();
         services.AddSingleton<IHasherService, HasherService>();
+        services.AddScoped<ILoginServiceExt, LoginServiceExt>();
 
         return services;
     }

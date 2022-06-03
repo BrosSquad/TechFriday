@@ -12,6 +12,7 @@ builder.Services.Configure<RouteOptions>(x =>
 });
 
 
+builder.Logging.ClearProviders();
 builder.Services.AddServicesRepositories();
 
 builder.Services.AddOptionModels();

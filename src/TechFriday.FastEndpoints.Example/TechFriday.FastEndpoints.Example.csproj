@@ -12,11 +12,13 @@
         <PackageReference Include="FastEndpoints" Version="4.2.0" />
         <PackageReference Include="FastEndpoints.Swagger" Version="4.2.0" />
         <PackageReference Include="MongoDB.Driver" Version="2.15.1" />
+        <PackageReference Include="LanguageExt.Core" Version="4.1.1" />
     </ItemGroup>
 
     <ItemGroup>
       <None Remove="Endpoints\Login\" />
       <None Remove="Endpoints\Me\" />
+      <None Remove="LanguageExt.Core" />
     </ItemGroup>
     <ItemGroup>
       <Folder Include="Endpoints\Login\" />
