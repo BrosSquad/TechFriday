@@ -1,10 +1,11 @@
-﻿using FastEndpoints.Example.Endpoints.Login;
+﻿using API.E2E.Tests.Extensions;
+using FastEndpoints.Example.Endpoints.Login;
 
 namespace API.E2E.Tests.Endpoints.Auth;
 
 public class LoginEndpointTests : EndToEndTestCase
 {
-		[Fact]
+        [Fact]
 		public async Task Error_When_User_Not_Found()
         {
             // Arrange
@@ -16,7 +17,7 @@ public class LoginEndpointTests : EndToEndTestCase
 
             // Act
             var response = await Client.PostAsJsonAsync(url, user);
-            var authCookie = ExtractCookie(response, "Auth");
+            var authCookie = response.ExtractCookie("Auth");
                 
             // Assert
             response.StatusCode.Should().Be(HttpStatusCode.NoContent);

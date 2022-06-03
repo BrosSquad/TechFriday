@@ -2,6 +2,7 @@
 global using Xunit;
 global using FluentAssertions;
 global using AutoFixture;
+global using Microsoft.AspNetCore.Mvc.Testing;
 
 // HTTP Status Codes and JSON
 global using System.Net;

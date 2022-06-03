@@ -1,5 +1,4 @@
-﻿
-using FastEndpoints.Example.Models;
+﻿using FastEndpoints.Example.Models;
 using FastEndpoints.Example.Repositories;
 using FastEndpoints.Example.Services;
 using NSubstitute.ReturnsExtensions;

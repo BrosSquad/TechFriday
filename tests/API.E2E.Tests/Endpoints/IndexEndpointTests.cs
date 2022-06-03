@@ -1,6 +1,5 @@
-﻿using System.Net;
+﻿using API.E2E.Tests.Extensions;
 using FastEndpoints.Example.Endpoints;
-using FluentAssertions;
 
 namespace API.E2E.Tests.Endpoints;
 
@@ -13,9 +12,7 @@ public class IndexEndpointTests : EndToEndTestCase
         const string url = "/";
 
         // Act
-        var (status, response) = await Extract<Response>(
-            await Client.GetAsync(url)
-        );
+        var (status, response) = await (await Client.GetAsync(url)).Extract<Response>();
 
         // Assert
         response.Should().NotBeNull();
@@ -25,7 +22,6 @@ public class IndexEndpointTests : EndToEndTestCase
         response.Hosts.Should().HaveCount(2);
         response.Hosts[0].Should().Be("Dusan Malusev");
         response.Hosts[1].Should().Be("Stefan Bogdanovic");
-
 
         status.Should().Be(HttpStatusCode.OK);
     }
