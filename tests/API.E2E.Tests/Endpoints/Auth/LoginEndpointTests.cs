@@ -1,5 +1,6 @@
 ﻿using API.E2E.Tests.Extensions;
 using FastEndpoints.Example.Endpoints.Login;
+using FastEndpoints.Example.Models;
 
 namespace API.E2E.Tests.Endpoints.Auth;
 
@@ -18,11 +19,13 @@ public class LoginEndpointTests : EndToEndTestCase
             // Act
             var response = await Client.PostAsJsonAsync(url, user);
             var authCookie = response.ExtractCookie("Auth");
+            var (status, body) = await response.Extract<User>();
                 
             // Assert
-            response.StatusCode.Should().Be(HttpStatusCode.NoContent);
+            status.Should().Be(HttpStatusCode.OK);
             authCookie.Should().NotBeNull();
             authCookie.Should().BeOfType<string>();
+            body.Should().NotBeNull().And.BeOfType<User>();
         }
 }
 

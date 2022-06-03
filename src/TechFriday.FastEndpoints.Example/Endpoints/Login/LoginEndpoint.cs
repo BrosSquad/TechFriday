@@ -14,7 +14,7 @@ public class LoginEndpoint : Endpoint<LoginRequest, object>
 
     public LoginEndpoint(ILoginService loginService)
     {
-       _loginService = loginService;
+        _loginService = loginService;
     }
 
     public override async Task HandleAsync(LoginRequest req, CancellationToken ct)
@@ -30,7 +30,8 @@ public class LoginEndpoint : Endpoint<LoginRequest, object>
         var userClaims = new List<Claim>
         {
             new("id", user.Id),
-            new(ClaimTypes.NameIdentifier, user.FirstName + " " + user.LastName)
+            new(ClaimTypes.NameIdentifier, user.FirstName + " " + user.LastName),
+            new(ClaimTypes.Role, user.Role)
         };
 
         var identity = new ClaimsIdentity(userClaims, CookieAuthenticationDefaults.AuthenticationScheme);

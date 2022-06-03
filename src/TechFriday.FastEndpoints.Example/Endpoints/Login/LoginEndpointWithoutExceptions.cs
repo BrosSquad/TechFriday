@@ -1,18 +1,35 @@
 ﻿using System.Security.Claims;
 using FastEndpoints.Example.Extensions;
+using FastEndpoints.Example.Models;
 using FastEndpoints.Example.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
 
 namespace FastEndpoints.Example.Endpoints.Login;
+
+public class LoginEndpointWithoutExceptionsSummary : Summary<LoginEndpointWithoutExceptions>
+{
+    public LoginEndpointWithoutExceptionsSummary()
+    {
+        Summary = "Login endpoint (Language Extensions)";
+        Description = "This endpoint logs in the user, and sets cookie.";
+        ExampleRequest = new LoginRequest
+        {
+            Email = "test@test.com",
+            Password = "password"
+        };
+        Response<User>(200, "User logged in sucessfully.");
+        Response<List<Extensions.ErrorResponse>>(StatusCodes.Status422UnprocessableEntity, "Validation errors.");
+        Response<object>(StatusCodes.Status404NotFound, "User not found.");
+    }
+}
 
 public class LoginEndpointWithoutExceptions : Endpoint<LoginRequest, object>
 {
     private readonly ILoginServiceExt _loginService;
 
     public LoginEndpointWithoutExceptions(ILoginServiceExt loginService)
-	{
+    {
         _loginService = loginService;
     }
 

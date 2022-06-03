@@ -1,5 +1,6 @@
 namespace FastEndpoints.Example.Endpoints.Users.CreateUserEndpoint;
 
-public class Response
+public class CreateUserResponse
 {
+    public string Id { get; set; } = default!;
 }

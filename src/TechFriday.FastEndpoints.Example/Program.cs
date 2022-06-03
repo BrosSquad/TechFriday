@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using FastEndpoints;
 using FastEndpoints.Example.Extensions;
 using FastEndpoints.Example.RouteConstraints;
@@ -12,7 +13,6 @@ builder.Services.Configure<RouteOptions>(x =>
 });
 
 builder.WebHost.ConfigureKestrel(x => x.AddServerHeader = false);
-builder.Logging.ClearProviders();
 builder.Services.AddServicesRepositories();
 
 builder.Services.AddOptionModels();
@@ -31,13 +31,23 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         {
             ctx.Response.StatusCode = StatusCodes.Status401Unauthorized;
             return Task.CompletedTask;
+        },
+        OnRedirectToAccessDenied = async ctx =>
+        {
+            ctx.Response.StatusCode = StatusCodes.Status401Unauthorized;
+            await ctx.Response.WriteAsJsonAsync(new { Message = "Unauthorized." });
         }
     };
 });
 
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminOnly", x => x.RequireClaim(ClaimTypes.Role, "Admin"));
+    options.AddPolicy("UserOnly", x => x.RequireClaim(ClaimTypes.Role, "User"));
+});
+
 builder.Services.AddFastEndpoints();
-builder.Services.AddSwaggerDoc();
+builder.Services.AddSwaggerDoc(addJWTBearerAuth: false);
 builder.Services.AddMongo();
 
 var app = builder.Build();
@@ -57,8 +67,11 @@ app.UseFastEndpoints(options =>
     options.ErrorResponseBuilder = (failures, _) => failures.ToResponse();
 });
 
-app.UseOpenApi();
-app.UseSwaggerUi3(x => x.ConfigureDefaults());
+if (app.Environment.IsDevelopment())
+{
+    app.UseOpenApi();
+    app.UseSwaggerUi3(x => x.ConfigureDefaults());
+}
 
 await app.RunAsync();
 

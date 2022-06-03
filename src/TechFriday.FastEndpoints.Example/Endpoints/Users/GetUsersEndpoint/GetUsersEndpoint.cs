@@ -4,6 +4,16 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace FastEndpoints.Example.Endpoints.Users.GetUsersEndpoint;
 
+public class GetUsersEndpointSummary : Summary<GetUsersEndpoint>
+{
+    public GetUsersEndpointSummary()
+    {
+        Summary = "Get users endpoint.";
+        Description = "This endpoint gets users.";
+        Response<List<User>>(StatusCodes.Status200OK, "List of users.");
+    }
+}
+
 [HttpGet("/users")]
 [AllowAnonymous]
 public class GetUsersEndpoint : EndpointWithoutRequest<List<User>>

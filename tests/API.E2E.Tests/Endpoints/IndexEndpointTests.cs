@@ -17,12 +17,10 @@ public class IndexEndpointTests : EndToEndTestCase
         // Assert
         response.Should().NotBeNull();
         response.Should().BeOfType<Response>();
-        response.Message.Should().NotBeNull();
         response.Message.Should().Be("Welcome to TechFriday!");
         response.Hosts.Should().HaveCount(2);
         response.Hosts[0].Should().Be("Dusan Malusev");
         response.Hosts[1].Should().Be("Stefan Bogdanovic");
-
         status.Should().Be(HttpStatusCode.OK);
     }
 }

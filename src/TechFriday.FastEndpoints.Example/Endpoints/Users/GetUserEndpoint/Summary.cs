@@ -4,12 +4,12 @@ namespace FastEndpoints.Example.Endpoints.Users.GetUserEndpoint;
 
 public class GetUserEndpointSummary : Summary<GetUserEndpoint>
 {
-	public GetUserEndpointSummary()
-	{
-		Summary = "GetUserEndpoint";
-		Description = "Get User By Id Endpoint";
-		Response<User>(200, "User found.");
-		Response<object>(404, "User not found.");
-	}
+    public GetUserEndpointSummary()
+    {
+        Summary = "Get user endpoint";
+        Description = "Get User By Id Endpoint";
+        Response<User>(StatusCodes.Status200OK, "User found.");
+        Response<object>(StatusCodes.Status404NotFound, "User not found.");
+    }
 }
 

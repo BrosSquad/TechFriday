@@ -12,14 +12,15 @@ public class MeEndpointSummary : Summary<MeEndpoint>
 {
     public MeEndpointSummary()
     {
-        Summary = "";
-        Description = "";
-        Response<MeEndpointResponse>(200, "Logged in user username");
+        Summary = "Gets currently loggedin user's username";
+        Description = "Gets currently loggedin user's username description";
+        Response<MeEndpointResponse>(StatusCodes.Status200OK, "Logged in user username");
+        Response<object>(StatusCodes.Status401Unauthorized, "Unauthorized");
     }
 }
 
 [HttpGet("/me")]
-[Authorize]
+[Authorize(Policy = "AdminOnly")]
 public class MeEndpoint : EndpointWithoutRequest<MeEndpointResponse>
 {
     public override async Task HandleAsync(CancellationToken ct)

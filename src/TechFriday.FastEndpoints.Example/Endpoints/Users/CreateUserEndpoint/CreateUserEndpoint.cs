@@ -5,7 +5,7 @@ namespace FastEndpoints.Example.Endpoints.Users.CreateUserEndpoint;
 
 [HttpPost("/users")]
 [AllowAnonymous]
-public class CreateUserEndpoint : Endpoint<CreateUserRequest, object>
+public class CreateUserEndpoint : Endpoint<CreateUserRequest, CreateUserResponse>
 {
     private readonly IUserService _userService;
 
@@ -18,6 +18,6 @@ public class CreateUserEndpoint : Endpoint<CreateUserRequest, object>
     {
         var user = await _userService.CreateUserAsync(req);
 
-        await SendAsync(new { user.Id }, cancellation: ct);
+        await SendAsync(new CreateUserResponse { Id = user.Id }, StatusCodes.Status201Created, cancellation: ct);
     }
 }
