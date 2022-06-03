@@ -5,8 +5,16 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
+  test:
+    services:
+      mongodb:
+        image: mongo:5
+        ports:
+          - 27017:27017
+    runs-on: ubuntu-latest
   build:
 
     runs-on: ubuntu-latest
