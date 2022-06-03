@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ main ]
   workflow_dispatch:
-
+  
 jobs:
   test:
     services:
@@ -15,19 +15,42 @@ jobs:
         ports:
           - 27017:27017
     runs-on: ubuntu-latest
-  build:
-
-    runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v3
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v2
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Setup DotNet
+      uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 6.0.x
-    - name: Restore dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+        dotnet-version: '6.0.x'
+    - name: 'Building the API'
+      run: dotnet build -c Release 
+    - name: 'Running Tests'
+      run: dotnet test --no-restore --no-build --nologo
+      env:
+        ASPNETCORE_ENVIRONMENT: Testing
+        ConnectionStrings__MongoDB: 'mongodb://localhost:27017'
+        MongoSettings__Database: confession_github_actions
+# jobs:
+#   test:
+#     services:
+#       mongodb:
+#         image: mongo:5
+#         ports:
+#           - 27017:27017
+#     runs-on: ubuntu-latest
+#   build:
+
+#     runs-on: ubuntu-latest
+
+#     steps:
+#     - uses: actions/checkout@v3
+#     - name: Setup .NET
+#       uses: actions/setup-dotnet@v2
+#       with:
+#         dotnet-version: 6.0.x
+#     - name: Restore dependencies
+#       run: dotnet restore
+#     - name: Build
+#       run: dotnet build --no-restore
+#     - name: Test
+#       run: dotnet test --no-build --verbosity normal
