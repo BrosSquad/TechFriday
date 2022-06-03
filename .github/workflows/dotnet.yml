@@ -25,7 +25,7 @@ jobs:
     - name: 'Building the API'
       run: dotnet build -c Release 
     - name: 'Running Tests'
-      run: dotnet test --no-restore --no-build --nologo
+      run: dotnet test --verbosity normal
 # jobs:
 #   test:
 #     services:
