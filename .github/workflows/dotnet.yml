@@ -1,4 +1,4 @@
-name: .NET
+name: .NET Test
 
 on:
   push:
@@ -26,10 +26,6 @@ jobs:
       run: dotnet build -c Release 
     - name: 'Running Tests'
       run: dotnet test --no-restore --no-build --nologo
-      env:
-        ASPNETCORE_ENVIRONMENT: Testing
-        ConnectionStrings__MongoDB: 'mongodb://localhost:27017'
-        MongoSettings__Database: confession_github_actions
 # jobs:
 #   test:
 #     services:
