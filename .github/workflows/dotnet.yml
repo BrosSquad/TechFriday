@@ -25,8 +25,8 @@ jobs:
       - name: 'Building the API'
         run: dotnet build -c Release
       - name: 'Running Unit tests'
-        run: dotnet test tests/Service.Unit.Tests/Service.Unit.Tests.csproj
+        run: dotnet test tests/Service.Unit.Tests/Service.Unit.Tests.csproj --no-build --no-restore --nologo
       - name: 'Running Integration tests'
-        run: dotnet test  tests/Repository.Integration.Tests/Repository.Integration.Tests.
+        run: dotnet test  tests/Repository.Integration.Tests/Repository.Integration.Tests.csproj --no-build --no-restore --nologo
       - name: 'Running E2E tests'
-        run: dotnet test tests/API.E2E.Tests/API.E2E.Tests.csproj
+        run: dotnet test tests/API.E2E.Tests/API.E2E.Tests.csproj --no-build --no-restore --nologo
