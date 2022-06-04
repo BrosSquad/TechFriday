@@ -2,11 +2,11 @@ name: .NET Test
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
   workflow_dispatch:
-  
+
 jobs:
   test:
     services:
@@ -16,37 +16,17 @@ jobs:
           - 27017:27017
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-    - name: Setup DotNet
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: '6.0.x'
-    - name: 'Building the API'
-      run: dotnet build -c Release 
-    - name: 'Running Tests'
-      run: dotnet test --verbosity normal
-# jobs:
-#   test:
-#     services:
-#       mongodb:
-#         image: mongo:5
-#         ports:
-#           - 27017:27017
-#     runs-on: ubuntu-latest
-#   build:
-
-#     runs-on: ubuntu-latest
-
-#     steps:
-#     - uses: actions/checkout@v3
-#     - name: Setup .NET
-#       uses: actions/setup-dotnet@v2
-#       with:
-#         dotnet-version: 6.0.x
-#     - name: Restore dependencies
-#       run: dotnet restore
-#     - name: Build
-#       run: dotnet build --no-restore
-#     - name: Test
-#       run: dotnet test --no-build --verbosity normal
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup DotNet
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '6.0.x'
+      - name: 'Building the API'
+        run: dotnet build -c Release
+      - name: 'Running Unit tests'
+        run: dotnet test tests/Service.Unit.Tests/Service.Unit.Tests.csproj
+      - name: 'Running Integration tests'
+        run: dotnet test  tests/Repository.Integration.Tests/Repository.Integration.Tests.
+      - name: 'Running E2E tests'
+        run: dotnet test tests/API.E2E.Tests/API.E2E.Tests.csproj
