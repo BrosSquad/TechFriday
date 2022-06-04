@@ -31,7 +31,7 @@ public class LoginEndpoint : Endpoint<LoginRequest, object>
         {
             new("id", user.Id),
             new(ClaimTypes.NameIdentifier, user.FirstName + " " + user.LastName),
-            new(ClaimTypes.Role, user.Role)
+            new(ClaimTypes.Role, user.Role ?? "Admin")
         };
 
         var identity = new ClaimsIdentity(userClaims, CookieAuthenticationDefaults.AuthenticationScheme);

@@ -9,6 +9,7 @@ public class IndexEndpointTests : EndToEndTestCase
     public async Task Test_Example()
     {
         // Arrange
+        await AuthenticateAsync("user");
         const string url = "/";
 
         // Act
