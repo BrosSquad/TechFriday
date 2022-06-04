@@ -22,6 +22,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="6.0.5" />
     <PackageReference Include="AutoFixture" Version="4.17.0" />
     <PackageReference Include="FluentAssertions" Version="6.7.0" />
+    <PackageReference Include="Bogus" Version="34.0.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,6 +32,8 @@
     <None Remove="Endpoints\" />
     <None Remove="Endpoints\Auth\" />
     <None Remove="Extensions\" />
+    <None Remove="Bogus" />
+    <None Remove="Endpoints\UserEndpoints\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\TechFriday.FastEndpoints.Example\TechFriday.FastEndpoints.Example.csproj" />
@@ -39,5 +42,6 @@
     <Folder Include="Endpoints\" />
     <Folder Include="Endpoints\Auth\" />
     <Folder Include="Extensions\" />
+    <Folder Include="Endpoints\Users\" />
   </ItemGroup>
 </Project>
