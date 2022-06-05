@@ -28,8 +28,12 @@
     <None Remove="NSubstitute" />
     <None Remove="FluentAssertions" />
     <None Remove="AutoFixture" />
+    <None Remove="RouteConstraints\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\TechFriday.FastEndpoints.Example\TechFriday.FastEndpoints.Example.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="RouteConstraints\" />
   </ItemGroup>
 </Project>
