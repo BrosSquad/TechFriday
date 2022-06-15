@@ -3,17 +3,6 @@ using FastEndpoints.Example.Services;
 
 namespace FastEndpoints.Example.Endpoints.Users.GetUsersEndpoint;
 
-public class GetUsersEndpointSummary : Summary<GetUsersEndpoint>
-{
-    public GetUsersEndpointSummary()
-    {
-        Summary = "Get users endpoint.";
-        Description = "This endpoint gets users.";
-
-        Response<List<User>>(StatusCodes.Status200OK, "List of users.");
-    }
-}
-
 public class GetUsersEndpoint : EndpointWithoutRequest<List<User>>
 {
     private readonly IUserService _userService;

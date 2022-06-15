@@ -7,18 +7,6 @@ public class MeEndpointResponse
     public string Name { get; set; } = default!;
 }
 
-public class MeEndpointSummary : Summary<MeEndpoint>
-{
-    public MeEndpointSummary()
-    {
-        Summary = "Gets currently loggedin user's username";
-        Description = "Gets currently loggedin user's username description";
-
-        Response<MeEndpointResponse>(StatusCodes.Status200OK, "Logged in user username");
-        Response<EmptyResponse>(StatusCodes.Status401Unauthorized, "Unauthorized");
-    }
-}
-
 public class MeEndpoint : EndpointWithoutRequest<MeEndpointResponse>
 {
     public override void Configure()

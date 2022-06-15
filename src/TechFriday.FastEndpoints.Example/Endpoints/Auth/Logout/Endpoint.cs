@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using FastEndpoints.Example.Extensions;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace FastEndpoints.Example.Endpoints.Auth.Logout;
@@ -15,6 +16,6 @@ public class LogoutEndpoint : EndpointWithoutRequest
     {
         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
-        await SendOkAsync(new { Message = "You have logged out successfully." }, ct);
+        await SendOkAsync(new Response { Message = "You have logged out successfully." }, ct);
     }
 }

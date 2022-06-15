@@ -10,7 +10,7 @@
     <ItemGroup>
         <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
         <PackageReference Include="MongoDB.Driver" Version="2.16.0" />
-        <PackageReference Include="LanguageExt.Core" Version="4.2.2" />
+        <PackageReference Include="LanguageExt.Core" Version="4.2.5" />
         <PackageReference Include="FastEndpoints" Version="4.3.0-beta9" />
         <PackageReference Include="FastEndpoints.Swagger" Version="4.3.0-beta9" />
         <PackageReference Include="FastEndpoints.Generator" Version="4.3.0-beta9" />
@@ -25,11 +25,15 @@
       <None Remove="FastEndpoints" />
       <None Remove="FastEndpoints.Swagger" />
       <None Remove="FastEndpoints.Generator" />
+      <None Remove="Endpoints\Users\DeleteUserEndpoint\" />
+      <None Remove="Endpoints\Users\UpdateUserEndpoint\" />
     </ItemGroup>
     <ItemGroup>
       <Folder Include="Endpoints\Me\" />
       <Folder Include="Endpoints\Auth\" />
       <Folder Include="Endpoints\Auth\Login\" />
       <Folder Include="Endpoints\Auth\Logout\" />
+      <Folder Include="Endpoints\Users\DeleteUserEndpoint\" />
+      <Folder Include="Endpoints\Users\UpdateUserEndpoint\" />
     </ItemGroup>
 </Project>

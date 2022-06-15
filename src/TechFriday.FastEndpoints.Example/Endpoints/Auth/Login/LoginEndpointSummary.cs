@@ -16,6 +16,6 @@ public class LoginEndpointSummary : Summary<LoginEndpoint>
         };
         Response<User>(StatusCodes.Status200OK, "User logged in sucessfully.");
         Response<List<ValidationResponse>>(StatusCodes.Status422UnprocessableEntity, "Validation errors.");
-        Response<ErrorResponse>(StatusCodes.Status404NotFound, "User not found.");
+        Response<Extensions.ErrorResponse>(StatusCodes.Status404NotFound, "User not found.");
     }
 }

@@ -19,8 +19,8 @@ public class IndexEndpointSummary : Summary<IndexEndpoint>
         Summary = "Welcome endpoint";
         Description = "Welcome endpoint example";
 
-        Response<IndexResponse>(StatusCodes.Status200OK, "Welcome message");
-        Response<EmptyResponse>(StatusCodes.Status401Unauthorized, "Unauthorized");
+        Response<IndexResponse>(StatusCodes.Status200OK, "Welcome message.");
+        Response<Extensions.ErrorResponse>(StatusCodes.Status401Unauthorized, "Unauthorized.");
     }
 }
 
