@@ -25,7 +25,7 @@ public class DeleteUserEndpoint : EndpointWithoutRequest
 
         if (!result)
         {
-            await SendAsync(new ErrorResponse { Message = "User not found." }, cancellation: ct);
+            await SendAsync(new ErrorResponse { Message = "User not found." }, StatusCodes.Status404NotFound, cancellation: ct);
             return;
         }
 
