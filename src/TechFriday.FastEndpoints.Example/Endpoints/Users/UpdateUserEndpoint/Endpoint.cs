@@ -34,7 +34,7 @@ public class UpdateUserEndpoint : Endpoint<UpdateUserRequest, object>
             await SendAsync(new ErrorResponse
             {
                 Message = "User not found."
-            }, StatusCodes.Status400BadRequest, cancellation: ct);
+            }, StatusCodes.Status404NotFound, cancellation: ct);
 
             return;
         }
