@@ -16,12 +16,16 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="Endpoints\Login\" />
       <None Remove="Endpoints\Me\" />
       <None Remove="LanguageExt.Core" />
+      <None Remove="Endpoints\Auth\" />
+      <None Remove="Endpoints\Auth\Login\" />
+      <None Remove="Endpoints\Auth\Logout\" />
     </ItemGroup>
     <ItemGroup>
-      <Folder Include="Endpoints\Login\" />
       <Folder Include="Endpoints\Me\" />
+      <Folder Include="Endpoints\Auth\" />
+      <Folder Include="Endpoints\Auth\Login\" />
+      <Folder Include="Endpoints\Auth\Logout\" />
     </ItemGroup>
 </Project>

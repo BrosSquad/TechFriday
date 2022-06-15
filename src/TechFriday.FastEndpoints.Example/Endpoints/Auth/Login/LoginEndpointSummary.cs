@@ -1,6 +1,6 @@
 ﻿using FastEndpoints.Example.Models;
 
-namespace FastEndpoints.Example.Endpoints.Login;
+namespace FastEndpoints.Example.Endpoints.Auth.Login;
 
 public class LoginEndpointSummary : Summary<LoginEndpoint>
 {

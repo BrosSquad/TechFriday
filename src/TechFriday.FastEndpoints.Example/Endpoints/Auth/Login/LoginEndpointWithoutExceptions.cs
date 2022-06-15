@@ -5,7 +5,7 @@ using FastEndpoints.Example.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
-namespace FastEndpoints.Example.Endpoints.Login;
+namespace FastEndpoints.Example.Endpoints.Auth.Login;
 
 public class LoginEndpointWithoutExceptionsSummary : Summary<LoginEndpointWithoutExceptions>
 {

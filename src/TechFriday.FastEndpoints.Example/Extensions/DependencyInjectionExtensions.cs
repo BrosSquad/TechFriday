@@ -5,7 +5,6 @@ using FastEndpoints.Example.Repositories;
 using FluentValidation.Results;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using System.Security.Claims;
 
 namespace FastEndpoints.Example.Extensions;
 

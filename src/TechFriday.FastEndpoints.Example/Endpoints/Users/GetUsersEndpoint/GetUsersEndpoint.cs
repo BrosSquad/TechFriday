@@ -1,6 +1,5 @@
 using FastEndpoints.Example.Models;
 using FastEndpoints.Example.Services;
-using Microsoft.AspNetCore.Authorization;
 
 namespace FastEndpoints.Example.Endpoints.Users.GetUsersEndpoint;
 
@@ -14,8 +13,6 @@ public class GetUsersEndpointSummary : Summary<GetUsersEndpoint>
     }
 }
 
-[HttpGet("/users")]
-[AllowAnonymous]
 public class GetUsersEndpoint : EndpointWithoutRequest<List<User>>
 {
     private readonly IUserService _userService;
@@ -23,6 +20,12 @@ public class GetUsersEndpoint : EndpointWithoutRequest<List<User>>
     public GetUsersEndpoint(IUserService userService)
     {
         _userService = userService;
+    }
+
+    public override void Configure()
+    {
+        Get("/users");
+        AllowAnonymous();
     }
 
     public override async Task HandleAsync(CancellationToken ct)

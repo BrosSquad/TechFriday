@@ -1,10 +1,7 @@
 using FastEndpoints.Example.Services;
-using Microsoft.AspNetCore.Authorization;
 
 namespace FastEndpoints.Example.Endpoints.Users.CreateUserEndpoint;
 
-[HttpPost("/users")]
-[AllowAnonymous]
 public class CreateUserEndpoint : Endpoint<CreateUserRequest, CreateUserResponse>
 {
     private readonly IUserService _userService;
@@ -12,6 +9,12 @@ public class CreateUserEndpoint : Endpoint<CreateUserRequest, CreateUserResponse
     public CreateUserEndpoint(IUserService userService)
     {
         _userService = userService;
+    }
+
+    public override void Configure()
+    {
+        Post("/users");
+        AllowAnonymous();
     }
 
     public override async Task HandleAsync(CreateUserRequest req, CancellationToken ct)

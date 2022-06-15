@@ -2,12 +2,9 @@
 using FastEndpoints.Example.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
 
-namespace FastEndpoints.Example.Endpoints.Login;
+namespace FastEndpoints.Example.Endpoints.Auth.Login;
 
-[HttpPost("/auth/login")]
-[AllowAnonymous]
 public class LoginEndpoint : Endpoint<LoginRequest, object>
 {
     private readonly ILoginService _loginService;
@@ -15,6 +12,12 @@ public class LoginEndpoint : Endpoint<LoginRequest, object>
     public LoginEndpoint(ILoginService loginService)
     {
         _loginService = loginService;
+    }
+
+    public override void Configure()
+    {
+        Post("/auth/login");
+        AllowAnonymous();
     }
 
     public override async Task HandleAsync(LoginRequest req, CancellationToken ct)

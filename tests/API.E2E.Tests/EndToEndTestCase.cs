@@ -1,10 +1,11 @@
-﻿using FastEndpoints.Example.Endpoints.Login;
+﻿using FastEndpoints.Example.Endpoints.Auth.Login;
+using FastEndpoints.Example.Endpoints.Users.CreateUserEndpoint;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
 
 namespace API.E2E.Tests;
 
-public abstract class EndToEndTestCase : IDisposable, IAsyncDisposable
+public abstract class EndToEndTestCase : IAsyncDisposable
 {
     protected readonly WebApplicationFactory<Program> Application;
     protected readonly HttpClient Client;
@@ -33,26 +34,9 @@ public abstract class EndToEndTestCase : IDisposable, IAsyncDisposable
         Client = Application.CreateClient();
     }
 
-    protected async Task AuthenticateAsync(string role)
+    protected async Task AuthenticateAsync(LoginRequest request)
     {
-        var userRequest = new LoginRequest
-        {
-            Email = "user@test.com",
-            Password = "password"
-        };
-
-        var adminRequest = new LoginRequest
-        {
-            Email = "admin@test.com",
-            Password = "password"
-        };
-
-        var response = await Client.PostAsJsonAsync("/auth/login", role switch
-        {
-            "user" => userRequest,
-            "admin" => adminRequest,
-            _ => adminRequest
-        });
+        var response = await Client.PostAsJsonAsync("/auth/login", request);
 
         response.EnsureSuccessStatusCode();
 
@@ -61,13 +45,20 @@ public abstract class EndToEndTestCase : IDisposable, IAsyncDisposable
         Client.DefaultRequestHeaders.Add(HeaderNames.Cookie, cookie);
     }
 
+    protected async Task RegisterAsync(CreateUserRequest request)
+    {
+        var response = await Client.PostAsJsonAsync("/users", request);
+
+        response.EnsureSuccessStatusCode();
+    }
+
     public async ValueTask DisposeAsync()
     {
         var client = Application.Services.GetRequiredService<IMongoClient>();
 
         var iterator = await client.ListDatabaseNamesAsync();
 
-        if (iterator == null)
+        if (iterator is null)
         {
             return;
         }
@@ -84,29 +75,5 @@ public abstract class EndToEndTestCase : IDisposable, IAsyncDisposable
             });
 
         await Application.DisposeAsync();
-
-        Client.Dispose();
-    }
-
-    public void Dispose()
-    {
-        var client = Application.Services.GetRequiredService<IMongoClient>();
-
-        var iterator = client.ListDatabaseNames();
-
-        if (iterator == null)
-        {
-            return;
-        }
-
-        foreach (var db in iterator.ToList().Where(db => db != null && DatabaseName == db))
-        {
-            client.DropDatabase(db);
-            return;
-        }
-
-        Application.Dispose();
-
-        Client.Dispose();
     }
 }

@@ -1,10 +1,7 @@
 using FastEndpoints.Example.Services;
-using Microsoft.AspNetCore.Authorization;
 
 namespace FastEndpoints.Example.Endpoints.Users.GetUserEndpoint;
 
-[HttpGet("/users/{id:mongoId}")]
-[AllowAnonymous]
 public class GetUserEndpoint : EndpointWithoutRequest<object>
 {
     private readonly IUserService _userService;
@@ -12,6 +9,12 @@ public class GetUserEndpoint : EndpointWithoutRequest<object>
     public GetUserEndpoint(IUserService userService)
     {
         _userService = userService;
+    }
+
+    public override void Configure()
+    {
+        Get("/users/{id:mongoId}");
+        AllowAnonymous();
     }
 
     public override async Task HandleAsync(CancellationToken ct)

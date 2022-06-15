@@ -1,5 +1,4 @@
 ﻿using System.Text.Json.Serialization;
-using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace FastEndpoints.Example.Endpoints;
 
@@ -18,7 +17,8 @@ public class IndexEndpointSummary : Summary<IndexEndpoint>
     {
         Summary = "Welcome endpoint";
         Description = "Welcome endpoint example";
-        Response<Response>(200, "Welcome message");
+        Response<Response>(StatusCodes.Status200OK, "Welcome message");
+        Response<EmptyResponse>(StatusCodes.Status401Unauthorized, "Unauthorized");
     }
 }
 
@@ -39,8 +39,8 @@ public class IndexEndpoint : EndpointWithoutRequest<Response>
             Message = "Welcome to TechFriday!",
             Hosts = new List<string>
             {
-                "Dusan Malusev",
-                "Stefan Bogdanovic"
+                "Dusan Malušev",
+                "Stefan Bogdanović"
             }
         }, ct);
     }
