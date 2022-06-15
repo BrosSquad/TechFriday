@@ -9,11 +9,20 @@ public class MongoIdConstraint : IRouteConstraint
     {
         var value = values[routeKey];
 
-        if (value is null) return false;
+        if (value is null)
+        {
+            return false;
+        }
 
-        if (value is not string) return false;
+        if (value is not string)
+        {
+            return false;
+        }
 
-        if (value is string s && s.Length != 24) return false;
+        if (value is string s && s.Length != 24)
+        {
+            return false;
+        }
 
         return ObjectId.TryParse((string)value, out _);
     }

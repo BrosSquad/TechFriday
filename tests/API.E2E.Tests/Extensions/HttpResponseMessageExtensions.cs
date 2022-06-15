@@ -22,9 +22,7 @@ internal static class HttpResponseMessageExtensions
 
     public static async Task<(HttpStatusCode statusCode, T data)> Extract<T>(this HttpResponseMessage response)
     {
-        var stream = await response.Content.ReadAsStreamAsync();
-
-        var body = await JsonSerializer.DeserializeAsync<T>(stream);
+        var body = await response.Content.ReadFromJsonAsync<T>();
 
         return (response.StatusCode, body)!;
     }

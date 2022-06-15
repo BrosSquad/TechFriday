@@ -1,4 +1,5 @@
-﻿using FastEndpoints.Example.Endpoints.Users.CreateUserEndpoint;
+﻿using API.E2E.Tests.Extensions;
+using FastEndpoints.Example.Endpoints.Users.CreateUserEndpoint;
 
 namespace API.E2E.Tests.Endpoints.UserEndpoints;
 
@@ -38,7 +39,10 @@ public class CreateUserEndpointTests : EndToEndTestCase
         // Act
         var response = await Client.PostAsJsonAsync("/users", request);
 
+        var (status, body) = await response.Extract<object>();
+
         // Assert
-        response.StatusCode.Should().Be(HttpStatusCode.UnprocessableEntity);
+        status.Should().Be(HttpStatusCode.UnprocessableEntity);
+        body.Should().NotBeNull();
     }
 }

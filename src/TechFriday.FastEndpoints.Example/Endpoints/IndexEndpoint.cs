@@ -1,5 +1,5 @@
 ﻿using System.Text.Json.Serialization;
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace FastEndpoints.Example.Endpoints;
 
@@ -22,10 +22,16 @@ public class IndexEndpointSummary : Summary<IndexEndpoint>
     }
 }
 
-[HttpGet("/")]
-[Authorize(Policy = "UserOnly")]
 public class IndexEndpoint : EndpointWithoutRequest<Response>
 {
+    public override void Configure()
+    {
+        Get("/");
+        //AuthSchemes(CookieAuthenticationDefaults.AuthenticationScheme);
+        //Policies("UserOnly");
+        AllowAnonymous();
+    }
+
     public override async Task HandleAsync(CancellationToken ct)
     {
         await SendOkAsync(new Response

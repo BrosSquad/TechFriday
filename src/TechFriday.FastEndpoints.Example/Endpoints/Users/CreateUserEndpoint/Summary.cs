@@ -6,6 +6,7 @@ public class CreateUserEndpointSummary : Summary<CreateUserEndpoint>
     {
         Summary = "Create user endpoint.";
         Description = "This endpoint creates user (register).";
+
         ExampleRequest = new CreateUserRequest
         {
             FirstName = "Test",

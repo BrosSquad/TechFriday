@@ -6,7 +6,7 @@ namespace FastEndpoints.Example.Services;
 
 public interface ILoginService
 {
-	 Task<User?> LoginAsync(string email, string password);
+    Task<User?> LoginAsync(string email, string password);
 }
 
 public class LoginService : ILoginService
@@ -15,7 +15,7 @@ public class LoginService : ILoginService
     private readonly IHasherService _hasherService;
 
     public LoginService(IUserRepository userRepository, IHasherService hasherService)
-	{
+    {
         _userRepository = userRepository;
         _hasherService = hasherService;
     }

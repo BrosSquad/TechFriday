@@ -5,13 +5,14 @@ using FastEndpoints.Example.Repositories;
 using FluentValidation.Results;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
+using System.Security.Claims;
 
 namespace FastEndpoints.Example.Extensions;
 
 public class ErrorResponse
 {
-    public string Property {get; init;} = default!;
-    public string Message {get; init;} = default!;
+    public string Property { get; init; } = default!;
+    public string Message { get; init; } = default!;
 }
 
 public static class DependencyInjectionExtensions
@@ -77,5 +78,4 @@ public static class DependencyInjectionExtensions
 
         return services;
     }
-
 }
