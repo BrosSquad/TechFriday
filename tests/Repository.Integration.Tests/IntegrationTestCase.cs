@@ -33,7 +33,7 @@ public class IntegrationTestCase : IDisposable, IAsyncDisposable
     {
         var iterator = Client.ListDatabaseNames();
 
-        if (iterator == null)
+        if (iterator is null)
         {
             return;
         }
@@ -50,7 +50,7 @@ public class IntegrationTestCase : IDisposable, IAsyncDisposable
     {
         var iterator = await Client.ListDatabaseNamesAsync();
 
-        if (iterator == null)
+        if (iterator is null)
         {
             return;
         }

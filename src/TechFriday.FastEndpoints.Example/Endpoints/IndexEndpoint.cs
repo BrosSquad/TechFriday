@@ -1,8 +1,9 @@
 ﻿using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace FastEndpoints.Example.Endpoints;
 
-public class Response
+public class IndexResponse
 {
     [JsonPropertyName("message")]
     public string Message { get; set; } = default!;
@@ -17,24 +18,24 @@ public class IndexEndpointSummary : Summary<IndexEndpoint>
     {
         Summary = "Welcome endpoint";
         Description = "Welcome endpoint example";
-        Response<Response>(StatusCodes.Status200OK, "Welcome message");
+
+        Response<IndexResponse>(StatusCodes.Status200OK, "Welcome message");
         Response<EmptyResponse>(StatusCodes.Status401Unauthorized, "Unauthorized");
     }
 }
 
-public class IndexEndpoint : EndpointWithoutRequest<Response>
+public class IndexEndpoint : EndpointWithoutRequest<IndexResponse>
 {
     public override void Configure()
     {
         Get("/");
-        //AuthSchemes(CookieAuthenticationDefaults.AuthenticationScheme);
-        //Policies("UserOnly");
-        AllowAnonymous();
+        AuthSchemes(CookieAuthenticationDefaults.AuthenticationScheme);
+        Policies("UserOnly");
     }
 
     public override async Task HandleAsync(CancellationToken ct)
     {
-        await SendOkAsync(new Response
+        await SendOkAsync(new IndexResponse
         {
             Message = "Welcome to TechFriday!",
             Hosts = new List<string>

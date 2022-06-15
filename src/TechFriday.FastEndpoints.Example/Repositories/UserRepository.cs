@@ -35,16 +35,13 @@ public class UserRepository : IUserRepository
 
     public async Task<User> CreateUserAsync(CreateUserRequest request)
     {
-        // We are using this to randomize role (showcase only)
-        var random = new Random();
-
         var user = new User
         {
             FirstName = request.FirstName,
             LastName = request.LastName,
             Email = request.Email,
             Password = BCrypt.Net.BCrypt.HashPassword(request.Password),
-            Role = random.NextSingle() > 0.5 ? "Admin" : "User"
+            Role = request.FirstName == "Admin" ? "Admin" : "User"
         };
 
         await _userCollection.InsertOneAsync(user);

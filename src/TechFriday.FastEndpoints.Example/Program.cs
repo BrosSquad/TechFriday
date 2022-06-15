@@ -12,7 +12,12 @@ builder.Services.Configure<RouteOptions>(x =>
     x.ConstraintMap.Add("mongoId", typeof(MongoIdConstraint));
 });
 
-builder.WebHost.ConfigureKestrel(x => x.AddServerHeader = false);
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.AddServerHeader = false;
+    options.AllowSynchronousIO = false;
+});
+
 builder.Services.AddServicesRepositories();
 
 builder.Services.AddOptionModels();
@@ -27,15 +32,15 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     options.AccessDeniedPath = null;
     options.Events = new CookieAuthenticationEvents
     {
-        OnRedirectToLogin = ctx =>
+        OnRedirectToLogin = async ctx =>
         {
             ctx.Response.StatusCode = StatusCodes.Status401Unauthorized;
-            return Task.CompletedTask;
+            await ctx.Response.WriteAsJsonAsync(new FastEndpoints.Example.Extensions.ErrorResponse { Message = "Unauthorized." });
         },
         OnRedirectToAccessDenied = async ctx =>
         {
             ctx.Response.StatusCode = StatusCodes.Status401Unauthorized;
-            await ctx.Response.WriteAsJsonAsync(new { Message = "Unauthorized." });
+            await ctx.Response.WriteAsJsonAsync(new FastEndpoints.Example.Extensions.ErrorResponse { Message = "Unauthorized." });
         }
     };
 });
@@ -57,6 +62,7 @@ var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
+    app.UseDeveloperExceptionPage();
     app.UseHttpLogging();
 }
 
