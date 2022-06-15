@@ -1,5 +1,4 @@
-﻿using API.E2E.Tests.Extensions;
-using FastEndpoints.Example.Endpoints.Auth.Login;
+﻿using FastEndpoints.Example.Endpoints.Auth.Login;
 using FastEndpoints.Example.Extensions;
 using FastEndpoints.Example.Models;
 
@@ -7,7 +6,7 @@ namespace API.E2E.Tests.Endpoints.Auth;
 
 public class LoginEndpointTests : EndToEndTestCase
 {
-    private const string _url = "/auth/login";
+    protected override string Url => "/auth/login";
 
     [Fact]
     public async Task Error_When_User_Not_Found()
@@ -20,13 +19,14 @@ public class LoginEndpointTests : EndToEndTestCase
         };
 
         // Act
-        var response = await Client.PostAsJsonAsync(_url, user);
+        var response = await Client.PostAsJsonAsync(Url, user);
 
-        var (status, body) = await response.Extract<object>();
+        var (status, body) = await response.Extract<ErrorResponse>();
 
         // Assert
         status.Should().Be(HttpStatusCode.NotFound);
         body.Should().NotBeNull();
+        body.Message.Should().Be("User not found.");
     }
 
     [Fact]
@@ -49,7 +49,7 @@ public class LoginEndpointTests : EndToEndTestCase
         };
 
         // Act
-        var response = await Client.PostAsJsonAsync(_url, user);
+        var response = await Client.PostAsJsonAsync(Url, user);
 
         var authCookie = response.Headers.GetValues(HeaderNames.SetCookie).First();
 
@@ -76,14 +76,14 @@ public class LoginEndpointTests : EndToEndTestCase
         };
 
         // Act
-        var response = await Client.PostAsJsonAsync(_url, user);
+        var response = await Client.PostAsJsonAsync(Url, user);
 
-        var (status, body) = await response.Extract<List<ErrorResponse>>();
+        var (status, body) = await response.Extract<List<ValidationResponse>>();
 
         // Assert
         status.Should().Be(HttpStatusCode.UnprocessableEntity);
         body.Should().NotBeNull();
-        body.Should().BeOfType<List<ErrorResponse>>();
+        body.Should().BeOfType<List<ValidationResponse>>();
         body.Should().HaveCount(4);
     }
 }

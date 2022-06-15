@@ -1,10 +1,8 @@
-﻿using API.E2E.Tests.Extensions;
-using FastEndpoints.Example.Endpoints;
-
-namespace API.E2E.Tests.Endpoints;
+﻿namespace API.E2E.Tests.Endpoints;
 
 public class IndexEndpointTests : EndToEndTestCase
 {
+    protected override string Url => "/";
     //[Fact]
     //public async Task Test_Example()
     //{
@@ -24,5 +22,5 @@ public class IndexEndpointTests : EndToEndTestCase
     //    response.Hosts[1].Should().Be("Stefan Bogdanovic");
     //    status.Should().Be(HttpStatusCode.OK);
     //}
-}
 
+}

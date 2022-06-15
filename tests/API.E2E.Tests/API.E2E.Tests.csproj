@@ -33,7 +33,6 @@
     <None Remove="Endpoints\Auth\" />
     <None Remove="Extensions\" />
     <None Remove="Bogus" />
-    <None Remove="Endpoints\UserEndpoints\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\TechFriday.FastEndpoints.Example\TechFriday.FastEndpoints.Example.csproj" />

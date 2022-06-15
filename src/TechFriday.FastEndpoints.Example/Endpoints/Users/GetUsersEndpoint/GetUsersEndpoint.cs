@@ -9,6 +9,7 @@ public class GetUsersEndpointSummary : Summary<GetUsersEndpoint>
     {
         Summary = "Get users endpoint.";
         Description = "This endpoint gets users.";
+
         Response<List<User>>(StatusCodes.Status200OK, "List of users.");
     }
 }

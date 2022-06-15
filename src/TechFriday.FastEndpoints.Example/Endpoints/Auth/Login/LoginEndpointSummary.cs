@@ -1,4 +1,5 @@
-﻿using FastEndpoints.Example.Models;
+﻿using FastEndpoints.Example.Extensions;
+using FastEndpoints.Example.Models;
 
 namespace FastEndpoints.Example.Endpoints.Auth.Login;
 
@@ -13,8 +14,8 @@ public class LoginEndpointSummary : Summary<LoginEndpoint>
             Email = "test@test.com",
             Password = "password"
         };
-        Response<User>(200, "User logged in sucessfully.");
-        Response<List<Extensions.ErrorResponse>>(StatusCodes.Status422UnprocessableEntity, "Validation errors.");
-        Response<object>(StatusCodes.Status404NotFound, "User not found.");
+        Response<User>(StatusCodes.Status200OK, "User logged in sucessfully.");
+        Response<List<ValidationResponse>>(StatusCodes.Status422UnprocessableEntity, "Validation errors.");
+        Response<ErrorResponse>(StatusCodes.Status404NotFound, "User not found.");
     }
 }

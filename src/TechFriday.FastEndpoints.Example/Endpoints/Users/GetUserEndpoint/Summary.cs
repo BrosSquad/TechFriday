@@ -8,8 +8,8 @@ public class GetUserEndpointSummary : Summary<GetUserEndpoint>
     {
         Summary = "Get user endpoint";
         Description = "Get User By Id Endpoint";
+
         Response<User>(StatusCodes.Status200OK, "User found.");
-        Response<object>(StatusCodes.Status404NotFound, "User not found.");
+        Response<ErrorResponse>(StatusCodes.Status404NotFound, "User not found.");
     }
 }
-

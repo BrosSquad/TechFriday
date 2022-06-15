@@ -18,7 +18,7 @@ public static class AppExtensions
             x => x.GetRequiredService<IMongoClient>().GetDatabase("testDb")
         );
 
-        services.AddSingleton<IMongoCollection<User>>(x =>
+        services.AddSingleton(x =>
             x.GetRequiredService<IMongoDatabase>()
                 .GetCollection<User>(nameof(User))
         );

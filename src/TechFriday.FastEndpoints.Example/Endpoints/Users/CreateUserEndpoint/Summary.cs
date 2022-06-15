@@ -1,3 +1,5 @@
+using FastEndpoints.Example.Extensions;
+
 namespace FastEndpoints.Example.Endpoints.Users.CreateUserEndpoint;
 
 public class CreateUserEndpointSummary : Summary<CreateUserEndpoint>
@@ -16,6 +18,6 @@ public class CreateUserEndpointSummary : Summary<CreateUserEndpoint>
         };
 
         Response<CreateUserResponse>(StatusCodes.Status201Created, "User succesfully created.");
-        Response<List<Extensions.ErrorResponse>>(StatusCodes.Status422UnprocessableEntity, "Validation errors.");
+        Response<List<ValidationResponse>>(StatusCodes.Status422UnprocessableEntity, "Validation errors.");
     }
 }

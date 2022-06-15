@@ -3,6 +3,8 @@ using FastEndpoints.Example.Endpoints.Users.CreateUserEndpoint;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
 
+[assembly: CollectionBehavior(DisableTestParallelization = true)]
+
 namespace API.E2E.Tests;
 
 public abstract class EndToEndTestCase : IAsyncDisposable
@@ -11,6 +13,7 @@ public abstract class EndToEndTestCase : IAsyncDisposable
     protected readonly HttpClient Client;
     protected readonly Fixture Fixture = new();
     protected readonly string DatabaseName;
+    protected abstract string Url { get; }
 
     protected EndToEndTestCase()
     {
@@ -45,11 +48,13 @@ public abstract class EndToEndTestCase : IAsyncDisposable
         Client.DefaultRequestHeaders.Add(HeaderNames.Cookie, cookie);
     }
 
-    protected async Task RegisterAsync(CreateUserRequest request)
+    protected async Task<CreateUserResponse> RegisterAsync(CreateUserRequest request)
     {
         var response = await Client.PostAsJsonAsync("/users", request);
 
         response.EnsureSuccessStatusCode();
+
+        return (await response.Content.ReadFromJsonAsync<CreateUserResponse>())!;
     }
 
     public async ValueTask DisposeAsync()

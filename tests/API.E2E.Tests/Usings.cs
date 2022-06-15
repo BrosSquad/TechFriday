@@ -8,3 +8,6 @@ global using Microsoft.AspNetCore.Mvc.Testing;
 global using System.Net;
 global using System.Net.Http.Json;
 global using Microsoft.Net.Http.Headers;
+
+// Custom
+global using API.E2E.Tests.Extensions;

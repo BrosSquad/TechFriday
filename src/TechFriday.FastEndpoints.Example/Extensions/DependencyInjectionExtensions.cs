@@ -8,22 +8,32 @@ using MongoDB.Driver;
 
 namespace FastEndpoints.Example.Extensions;
 
-public class ErrorResponse
+public class ValidationResponse
 {
     public string Property { get; init; } = default!;
     public string Message { get; init; } = default!;
 }
 
+public class Response
+{
+    public string Message { get; init; } = default!;
+}
+
+public class ErrorResponse
+{
+    public string Message { get; init; } = default!;
+}
+
 public static class DependencyInjectionExtensions
 {
-    public static List<ErrorResponse> ToResponse(this IEnumerable<ValidationFailure> errors)
+    public static List<ValidationResponse> ToResponse(this IEnumerable<ValidationFailure> errors)
     {
-        var list = new List<ErrorResponse>();
+        var list = new List<ValidationResponse>();
 
         foreach (var err in errors)
         {
 
-            list.Add(new ErrorResponse
+            list.Add(new ValidationResponse
             {
                 Property = err.PropertyName,
                 Message = err.ErrorMessage

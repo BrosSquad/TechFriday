@@ -13,14 +13,16 @@ public class LoginEndpointWithoutExceptionsSummary : Summary<LoginEndpointWithou
     {
         Summary = "Login endpoint (Language Extensions)";
         Description = "This endpoint logs in the user, and sets cookie.";
+
         ExampleRequest = new LoginRequest
         {
             Email = "test@test.com",
             Password = "password"
         };
-        Response<User>(200, "User logged in sucessfully.");
-        Response<List<Extensions.ErrorResponse>>(StatusCodes.Status422UnprocessableEntity, "Validation errors.");
-        Response<object>(StatusCodes.Status404NotFound, "User not found.");
+
+        Response<User>(StatusCodes.Status200OK, "User logged in sucessfully.");
+        Response<List<ValidationResponse>>(StatusCodes.Status422UnprocessableEntity, "Validation errors.");
+        Response<ErrorResponse>(StatusCodes.Status404NotFound, "User not found.");
     }
 }
 
@@ -66,12 +68,12 @@ public class LoginEndpointWithoutExceptions : Endpoint<LoginRequest, object>
             {
                 if (exception is UserNotFoundException ex)
                 {
-                    await SendAsync(new { ex.Message }, 400, cancellation: ct);
+                    await SendAsync(new ErrorResponse { Message = ex.Message }, 400, cancellation: ct);
                     return;
                 }
                 if (exception is PasswordMissmatchException passwordMissmatchException)
                 {
-                    await SendAsync(new { passwordMissmatchException.Message }, 400, cancellation: ct);
+                    await SendAsync(new ErrorResponse { Message = passwordMissmatchException.Message }, 400, cancellation: ct);
                     return;
                 }
             });

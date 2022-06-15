@@ -46,7 +46,10 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("UserOnly", x => x.RequireClaim(ClaimTypes.Role, "User"));
 });
 
-builder.Services.AddFastEndpoints();
+builder.Services.AddFastEndpoints(options =>
+{
+    options.SourceGeneratorDiscoveredTypes = DiscoveredTypes.All;
+});
 builder.Services.AddSwaggerDoc(addJWTBearerAuth: false);
 builder.Services.AddMongo();
 

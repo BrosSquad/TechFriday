@@ -2,13 +2,13 @@
 
 public class LogoutEndpointTests : EndToEndTestCase
 {
-    private readonly string _url = "/auth/logout";
+    protected override string Url => "/auth/logout";
 
     [Fact]
     public async Task Logout_No_Cookie()
     {
         // Act
-        var response = await Client.PostAsync(_url, null);
+        var response = await Client.PostAsync(Url, null);
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
@@ -33,7 +33,7 @@ public class LogoutEndpointTests : EndToEndTestCase
         });
 
         // Act
-        var response = await Client.PostAsync(_url, null);
+        var response = await Client.PostAsync(Url, null);
 
         var authCookie = response.Headers.GetValues(HeaderNames.SetCookie).First();
 

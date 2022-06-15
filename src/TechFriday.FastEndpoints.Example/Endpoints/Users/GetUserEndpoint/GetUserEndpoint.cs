@@ -25,7 +25,7 @@ public class GetUserEndpoint : EndpointWithoutRequest<object>
 
         if (user is null)
         {
-            await SendAsync(new { Message = "User not found" }, StatusCodes.Status404NotFound, ct);
+            await SendAsync(new ErrorResponse { Message = "User not found." }, StatusCodes.Status404NotFound, ct);
             return;
         }
 

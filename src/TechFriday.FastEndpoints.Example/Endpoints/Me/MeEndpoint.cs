@@ -13,6 +13,7 @@ public class MeEndpointSummary : Summary<MeEndpoint>
     {
         Summary = "Gets currently loggedin user's username";
         Description = "Gets currently loggedin user's username description";
+
         Response<MeEndpointResponse>(StatusCodes.Status200OK, "Logged in user username");
         Response<EmptyResponse>(StatusCodes.Status401Unauthorized, "Unauthorized");
     }

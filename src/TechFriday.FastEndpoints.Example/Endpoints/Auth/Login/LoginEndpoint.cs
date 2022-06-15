@@ -26,7 +26,7 @@ public class LoginEndpoint : Endpoint<LoginRequest, object>
 
         if (user is null)
         {
-            await SendAsync(new { Message = "User not found." }, StatusCodes.Status404NotFound, cancellation: ct);
+            await SendAsync(new ErrorResponse { Message = "User not found." }, StatusCodes.Status404NotFound, cancellation: ct);
             return;
         }
 
